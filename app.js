@@ -35,11 +35,16 @@ function initializeEventListeners() {
 	
 	// Filter controls
 	document.getElementById('add-filter').addEventListener('click', handleAddFilter);
+	
+	// Add this line
+	document.getElementById('add-channel-button').addEventListener('click', () => $('#channelModal').modal('show'));
+	document.getElementById('save-channel').addEventListener('click', handleChannelSubmit);
 }
 
 // Channel form handler
 function handleChannelSubmit(e) {
-	e.preventDefault();
+	if (e) e.preventDefault();
+	
 	var name = document.getElementById('name').value;
 	var logoId = document.getElementById('logo-id').value;
 	var groupId = document.getElementById('group-id').value;
@@ -74,6 +79,10 @@ function handleChannelSubmit(e) {
 	}
 	localStorage.setItem('channels', JSON.stringify(channels));
 	loadChannels();
+	
+	// Add these lines at the end
+	$('#channelModal').modal('hide');
+	document.getElementById('channel-form').reset();
 }
 
 // Channel loading and display
@@ -137,10 +146,7 @@ function displayChannels(channels) {
 			document.getElementById('epg-id').value = channel.epgId;
 			document.getElementById('provider-id').value = channel.providerId;
 			document.getElementById('stream-urls').value = channel.streamUrls.join('\n');
-			// Scroll to the form
-			document.getElementById('channel-form').scrollIntoView({
-				behavior: 'smooth'
-			});
+			$('#channelModal').modal('show');
 		});
 
 		cardBody.appendChild(deleteButton);

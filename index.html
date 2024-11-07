@@ -9,21 +9,17 @@
 <body>
     <div class="container">
         <h1>M3U Playlist Manager</h1>
-        <form id="channel-form" class="mb-3">
-            <input type="text" id="name" class="form-control" placeholder="Channel Name" required>
-            <br>
-            <input type="text" id="logo-id" class="form-control" placeholder="Logo ID" required>
-            <br>
-            <input type="text" id="group-id" class="form-control" placeholder="Group ID" required>
-            <br>
-            <input type="text" id="epg-id" class="form-control" placeholder="EPG ID" required>
-            <br>
-            <input type="text" id="provider-id" class="form-control" placeholder="Provider ID" required>
-            <br>
-            <textarea id="stream-urls" class="form-control" placeholder="Stream URLs (one per line)" required></textarea>
-            <br>
-            <button type="submit" class="btn btn-primary mt-2">Add Channel</button>
-        </form>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <button id="add-channel-button" class="btn btn-primary">Add Channel</button>
+            <button id="save-playlist" class="btn btn-primary">Save Playlist</button>
+            <input type="file" id="load-playlist" style="display: none;">
+            <button id="load-playlist-button" class="btn btn-primary">Load Playlist</button>
+            <button id="check-urls" class="btn btn-primary">Check URLs</button>
+            <button id="sort-channels" class="btn btn-primary">Sort Channels</button>
+            <button id="export-m3u" class="btn btn-primary">Export M3U</button>
+            <input type="file" id="import-m3u" style="display: none;">
+            <button id="import-m3u-button" class="btn btn-primary">Import M3U</button>
+        </div>
 
         <div class="filter-controls mb-3">
             <div class="row">
@@ -57,17 +53,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="toolbar mb-3">
-            <button id="save-playlist" class="btn btn-primary">Save Playlist</button>
-            <input type="file" id="load-playlist" style="display: none;">
-            <button id="load-playlist-button" class="btn btn-primary">Load Playlist</button>
-            <button id="check-urls" class="btn btn-primary">Check URLs</button>
-            <button id="sort-channels" class="btn btn-primary">Sort Channels</button>
-            <button id="export-m3u" class="btn btn-primary">Export M3U</button>
-            <input type="file" id="import-m3u" style="display: none;">
-            <button id="import-m3u-button" class="btn btn-primary">Import M3U</button>
-        </div>
     </div>
 
     <!-- Modal component for M3U Export -->
@@ -91,6 +76,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="exportConfirm">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal component for adding a new channel -->
+    <div class="modal" tabindex="-1" role="dialog" id="channelModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Channel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="channel-form">
+                        <input type="text" id="name" class="form-control mb-2" placeholder="Channel Name" required>
+                        <input type="text" id="logo-id" class="form-control mb-2" placeholder="Logo ID" required>
+                        <input type="text" id="group-id" class="form-control mb-2" placeholder="Group ID" required>
+                        <input type="text" id="epg-id" class="form-control mb-2" placeholder="EPG ID" required>
+                        <input type="text" id="provider-id" class="form-control mb-2" placeholder="Provider ID" required>
+                        <textarea id="stream-urls" class="form-control mb-2" placeholder="Stream URLs (one per line)" required></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="save-channel">Save Channel</button>
                 </div>
             </div>
         </div>
