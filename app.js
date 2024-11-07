@@ -3,6 +3,24 @@ let currentPage = 1;
 const itemsPerPage = 5;
 let activeFilters = [];
 
+// Add this helper function at the top of the file with other functions
+async function checkServerAvailability() {
+	try {
+		const response = await fetch('http://localhost:5000/check_url', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				url: 'https://www.google.com' // Test URL
+			})
+		});
+		return response.ok;
+	} catch (error) {
+		return false;
+	}
+}
+
 // Wait for DOM to be fully loaded before attaching event listeners
 document.addEventListener('DOMContentLoaded', function() {
 	// Initialize event listeners
@@ -308,36 +326,51 @@ function handleLoadPlaylist(e) {
 }
 
 // URL checking handler
-function handleCheckUrls() {
+async function handleCheckUrls() {
+	// First check if the server is available
+	const isServerAvailable = await checkServerAvailability();
+	
+	if (!isServerAvailable) {
+		alert('URL validator server is not available. Please make sure the server is running on localhost:5000');
+		return;
+	}
+
 	var channels = JSON.parse(localStorage.getItem('channels')) || [];
 	var promises = []; // Array to hold all fetch promises
+	
 	channels.forEach(function(channel, index) {
 		channel.streamUrls.forEach(function(url, i) {
 			var promise = fetch('http://localhost:5000/check_url', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						url: url
-					})
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					url: url
 				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.status !== 200) {
-						// Move the URL to the end of the list
-						channel.streamUrls.push(channel.streamUrls.splice(i, 1)[0]);
-					}
-				})
-				.catch(error => console.error('Error:', error));
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.status !== 200) {
+					// Move the URL to the end of the list
+					channel.streamUrls.push(channel.streamUrls.splice(i, 1)[0]);
+				}
+			})
+			.catch(error => {
+				console.error('Error checking URL:', url, error);
+			});
 			promises.push(promise);
 		});
 	});
+
 	// Wait for all fetch promises to complete
 	Promise.all(promises).then(function() {
 		localStorage.setItem('channels', JSON.stringify(channels));
-		loadChannels();
-		alert('URL check completed!');
+			loadChannels();
+			alert('URL check completed!');
+	}).catch(function(error) {
+		console.error('Error during URL checks:', error);
+		alert('An error occurred while checking URLs. Please try again.');
 	});
 }
 
