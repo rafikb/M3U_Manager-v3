@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>M3U Playlist Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>M3U Playlist Manager</h1>
+        <form id="channel-form" class="mb-3">
+            <input type="text" id="name" class="form-control" placeholder="Channel Name" required>
+            <br>
+            <input type="text" id="logo-id" class="form-control" placeholder="Logo ID" required>
+            <br>
+            <input type="text" id="group-id" class="form-control" placeholder="Group ID" required>
+            <br>
+            <input type="text" id="epg-id" class="form-control" placeholder="EPG ID" required>
+            <br>
+            <input type="text" id="provider-id" class="form-control" placeholder="Provider ID" required>
+            <br>
+            <textarea id="stream-urls" class="form-control" placeholder="Stream URLs (one per line)" required></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary mt-2">Add Channel</button>
+        </form>
+
+        <div class="filter-controls mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" id="search-input" class="form-control" placeholder="Search channels...">
+                </div>
+                <div class="col-md-4">
+                    <select id="filter-type" class="form-control">
+                        <option value="all">All</option>
+                        <option value="name">Name</option>
+                        <option value="groupId">Group ID</option>
+                        <option value="providerId">Provider ID</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button id="add-filter" class="btn btn-primary">Add Filter</button>
+                </div>
+            </div>
+            <div id="active-filters" class="mt-2">
+                <!-- Active filter tags will be inserted here -->
+            </div>
+        </div>
+
+        <div id="channel-list" class="mb-4">
+            <div class="channel-list-container">
+                <div id="empty-message" class="empty-playlist-message">
+                    Empty Playlist! Please add or import channels!
+                </div>
+                <div id="channels-container">
+                    <!-- Channels will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar mb-3">
+            <button id="save-playlist" class="btn btn-primary">Save Playlist</button>
+            <input type="file" id="load-playlist" style="display: none;">
+            <button id="load-playlist-button" class="btn btn-primary">Load Playlist</button>
+            <button id="check-urls" class="btn btn-primary">Check URLs</button>
+            <button id="sort-channels" class="btn btn-primary">Sort Channels</button>
+            <button id="export-m3u" class="btn btn-primary">Export M3U</button>
+            <input type="file" id="import-m3u" style="display: none;">
+            <button id="import-m3u-button" class="btn btn-primary">Import M3U</button>
+        </div>
+    </div>
+
+    <!-- Modal component for M3U Export -->
+    <div class="modal" tabindex="-1" role="dialog" id="exportModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Export Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-control" id="exportOption">
+                        <option value="all">All Channels</option>
+                        <option value="group">Specific Group ID</option>
+                        <option value="provider">Specific Provider ID</option>
+                    </select>
+                    <input type="text" id="exportValue" class="form-control mt-2" placeholder="Enter Group ID or Provider ID" style="display: none;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="exportConfirm">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

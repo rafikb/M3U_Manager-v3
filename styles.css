@@ -1,0 +1,19 @@
+.channel-list-container {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    min-height: 200px;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.empty-playlist-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6c757d;
+    font-size: 1.1rem;
+    text-align: center;
+    width: 100%;
+} 

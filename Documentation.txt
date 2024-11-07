@@ -1,0 +1,82 @@
+# M3U Playlist Manager Documentation
+
+## Overview
+The M3U Playlist Manager is a web-based application that allows users to create, edit, and manage M3U playlists for IPTV channels. It provides features for channel management, playlist import/export, URL validation, and filtering capabilities.
+
+## Features
+
+### 1. Channel Management
+- Add new channels with the following information:
+  - Channel Name
+  - Logo ID
+  - Group ID
+  - EPG ID
+  - Provider ID
+  - Stream URLs (multiple URLs supported)
+- Edit existing channels
+- Delete channels
+- Sort channels by Group ID and Name
+
+### 2. Playlist Operations
+- Save playlist as JSON file
+- Load playlist from JSON file
+- Export playlist as M3U file
+  - Export all channels
+  - Export by group
+  - Export by provider
+- Import existing M3U playlists
+
+### 3. URL Validation
+- Check stream URLs validity
+- Automatically reorder URLs (invalid URLs moved to end of list)
+- Requires local URL validator server running on port 5000
+
+### 4. Filter System
+- Filter channels by:
+  - All fields
+  - Name
+  - Group ID
+  - Provider ID
+- Multiple filters can be applied simultaneously
+- Filter tags displayed with remove option
+- Pagination maintains filter state
+
+## Usage Instructions
+
+### Adding a Channel
+1. Fill in the channel details in the form at the top
+2. For multiple stream URLs, enter each URL on a new line
+3. Click "Add Channel" to save
+
+### Managing Channels
+- Click "Edit" on a channel card to modify its details
+- Click "Delete" to remove a channel
+- Use "Sort Channels" to organize by Group ID and Name
+
+### Filtering Channels
+1. Select filter type from dropdown (All, Name, Group ID, Provider ID)
+2. Enter search term in the text input
+3. Click "Add Filter" to apply
+4. Multiple filters can be added
+5. Click the 'X' on filter tags to remove them
+
+### Playlist Import/Export
+- Use "Save Playlist" to download current playlist as JSON
+- Use "Load Playlist" to restore a saved JSON playlist
+- Use "Export M3U" to generate an M3U file
+  - Choose export option (All/Group/Provider)
+  - Specify value for filtered export
+- Use "Import M3U" to load an existing M3U playlist
+
+### URL Validation
+1. Ensure URL validator server is running
+2. Click "Check URLs" to validate all stream URLs
+3. Invalid URLs will be moved to the end of each channel's URL list
+4. Wait for completion notification
+
+## Technical Requirements
+- Modern web browser with JavaScript enabled
+- URL validator server running on localhost:5000
+- Internet connection for CDN resources (Bootstrap, Font Awesome)
+
+## File Structure 
