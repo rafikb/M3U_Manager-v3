@@ -31,12 +31,13 @@ A web-based application for creating, editing, and managing M3U playlists for IP
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/m3u-playlist-manager.git
+git clone https://github.com/rafikb/M3U_Manager-v3.git
 ```
 
 2. Install Python dependencies for URL validator:
 ```bash
-pip install flask requests flask-cors
+pip install flask requests
+pip install -U flask-cors
 ```
 
 3. Start the URL validator server:
@@ -68,20 +69,18 @@ m3u-playlist-manager/
 
 ## Quick Start
 
-1. Add channels using the form at the top
-2. Use toolbar buttons for playlist operations
-3. Apply filters using the filter controls
-4. Export your playlist in M3U or JSON format
+1. Start the URL validator server first:
+```bash
+python3 url_validator.py
+```
+
+2. Open `index.html` in your web browser
+3. Add channels using the form at the top
+4. Use toolbar buttons for playlist operations
+5. Apply filters using the filter controls
+6. Export your playlist in M3U or JSON format
 
 For detailed instructions, see [Documentation.txt](Documentation.txt).
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
 
 ## License
 
